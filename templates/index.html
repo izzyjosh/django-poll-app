@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>poll</title>
+   <style>
+      * {
+         padding: 0;
+         margin: 0;
+         box-sizing: border-box;
+      }
+      body {
+         font-family: Verdana;
+         height: 100vh;
+      }
+      .poll-categories {
+         background: #abc270;
+         color: #fff;
+         font-size: 0.8em;
+         padding: 5px 2%;
+         margin-bottom: 15px;
+      }
+      .poll-categories h1 {
+         padding-bottom: 12px;
+      }
+      .main-nav {
+         display: flex;
+         align-content: center;
+         justify-content: space-evenly;
+         padding: 20px 10%;
+      }
+      .question {
+         background: #fec868;
+         padding: 40px 10%;
+         color:#473c33;
+         border-radius: 50px;
+         margin: 10px 5%;
+      }
+      .options {
+         padding: 10px;
+      }
+      label {
+         padding-left: 4px;
+      }
+      .btn {
+         background: #fda769;
+         border: none;
+         padding: 12px 15px;
+         border-radius: 20px;
+         margin: 1em;
+         outline: none;
+      }
+      #next {
+         float: right;
+         clear: both;
+      }
+      #finish {
+         float: right;
+      }
+   </style>
+</head>
+<body>
+   <header>
+      <div class="poll-categories">
+         <h1>poll app</h1>
+         <div class="main-nav">
+            <h3>math</h3>
+            <h3>english</h3>
+            <h3>physics</h3>
+            <h3>chemistry</h3>
+         </div>
+      </div>
+   </header>
+   <main>
+      <div class="question">
+         <h2>{{ question.question }}</h2>
+      </div>
+      <div class="options">
+         <form action="{% url 'index' question.id %}" method="post">
+            {% csrf_token %}
+            <input type="radio" name="option"> {{ a }}
+            <br>
+            <br>
+            <input type="radio" name="option">{{ b }}
+            <br>
+            <br>
+            <input type="radio" name="option">{{ c }}
+            <br>
+            <br>
+            <input type="radio" name="option">{{ d }}
+            <br>
+            <br>
+            {% if not question.id == questions.count %}
+            	<button class="btn" id="next">next</button>
+            {% endif %}
+         </form>
+             {% if question.id == questions.count %}
+                  <a href="{% url 'finish' %}"><button class="btn" id="finish">finish</button></a>
+             {% endif %}
+         <a href="{% url 'previous' question.id %}"><button class="btn">previous</button></a>
+      </div>
+   </main>
+</body>
+</html>
